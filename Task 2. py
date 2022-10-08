@@ -5,12 +5,10 @@ def input_filename(file_name="input_data.txt"):
     data.close()
     return text
 
-
 def write_file(file_name, text):
     f = open(file_name, "w")
     f.write(text)
     f.close()
-
 
 def rle_encode(data):
     if not data:
@@ -29,7 +27,6 @@ def rle_encode(data):
     encoding += str(count) + prev_char
 
     return encoding
-
 
 def rle_decoding(text):
     decoding = ""
