@@ -1,0 +1,62 @@
+def input_filename(file_name="input_data.txt"):
+    path1 = file_name
+    data = open(file_name, "r")
+    text = data.read()
+    data.close()
+    return text
+
+
+def write_file(file_name, text):
+    f = open(file_name, "w")
+    f.write(text)
+    f.close()
+
+
+def rle_encode(data):
+    if not data:
+        return ""
+    encoding = ""
+    prev_char = data[0]
+    count = 0
+
+    for i in data:
+        if i == prev_char:
+            count += 1
+        else:
+            encoding += str(count) + prev_char
+            prev_char = i
+            count = 1
+    encoding += str(count) + prev_char
+
+    return encoding
+
+
+def rle_decoding(text):
+    decoding = ""
+    for i in range(len(text)):
+        if str(text[i]).isdigit():
+            for j in range(int(text[i])):
+                decoding += text[i + 1]
+    return decoding
+
+
+en_dec = input("Press 1(encoding) or 2(decoding):")
+if en_dec == "1":
+    file_name = str(input("Input file name:"))
+    # file_name = 'input_data.txt'
+    text = input_filename(file_name)
+    encod_data = rle_encode(text)
+    print("Result = {}".format(encod_data))
+    write_file(input("Input file name:"), encod_data)
+elif en_dec == "2":
+    file_name = str(input("Input file name:"))
+    # file_name = 'output_data.txt'
+    encod_data = input_filename(file_name)
+    deco_data = rle_decoding(encod_data)
+    print("Decoding data = {}".format(deco_data))
+else:
+    print("Please retry")
+
+# 'input_data.txt'
+# 'output_data.txt'
+
